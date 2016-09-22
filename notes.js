@@ -62,21 +62,20 @@ userAgent String
 Gráficas: Users, Paths, userAgents
 
 
-db.createCollection(“logs”, 
-{
-validator: { $or: 
-[
-{host: {$type: “string”}},
-{user: {$type: “string”}},
-{status: {$type: “string”}},
-{method: {$in: [“GET”, “POST”, “PUT”, “DEL”]},
-{time: {$type: “date”},
-{path: {$type: “string”},
-{responseSize: {$type: “integer”},
-{userAgent: {$type: “string”}
-]
-},
-validationAction: “warm”
+db.createCollection("logs", {
+	validator: { $or: 
+		[
+			{host: {$type: "string"}},
+			{user: {$type: "string"}},
+			{status: {$type: "string"}},
+			{method: {$in: ["GET", "POST", "PUT", "DEL"]}},
+			{time: {$type: "date"}},
+			{path: {$type: "string"}},
+			{responseSize: {$type: "int"}},
+			{userAgent: {$type: "string"}}
+		]
+	},
+	validationAction: "warn"
 }, 
 {capped: true, size: 5242880, max: 100.000}
-)
+);
